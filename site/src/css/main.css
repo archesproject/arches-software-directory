@@ -253,6 +253,44 @@ a:hover { color: var(--color-arches-red-dark); }
   box-shadow: var(--shadow-card-hover);
   border-color: var(--color-arches-red);
 }
+.package-card--archesproject {
+  border-left: 3px solid var(--color-arches-red);
+  padding-left: calc(1.25rem - 2px);
+}
+.archesproject-mark {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.3rem;
+  position: relative;
+  cursor: help;
+  vertical-align: middle;
+}
+.archesproject-mark-logo {
+  height: 0.8rem;
+  width: auto;
+  filter: brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(1200%) hue-rotate(335deg) brightness(95%);
+}
+.archesproject-mark::after {
+  content: "Maintained by the Arches Project core team";
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: white;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-card);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.archesproject-mark:hover::after {
+  opacity: 1;
+}
 .card-header {
   display: flex;
   flex-direction: column;

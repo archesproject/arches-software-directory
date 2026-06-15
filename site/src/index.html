@@ -65,8 +65,9 @@ title: Arches Catalog — Community Extensions and Applications
 
   <ul class="package-grid" id="package-grid" role="list">
     {%- for pkg in packages | sort(attribute="name") %}
+    {%- set isArchesProject = pkg.maintainers and (pkg.maintainers | join(",")).includes("archesproject") %}
     <li
-      class="package-card"
+      class="package-card{% if isArchesProject %} package-card--archesproject{% endif %}"
       data-kind="{{ pkg.kind }}"
       data-status="{{ pkg.status }}"
       data-arches-versions="{{ pkg.arches_versions }}"
@@ -85,7 +86,8 @@ title: Arches Catalog — Community Extensions and Applications
       {%- if pkg.maintainers and pkg.maintainers.length %}
       <p class="card-owner">
         {%- for maintainer in pkg.maintainers %}
-        <a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a>{% if not loop.last %}, {% endif %}
+        {%- if maintainer === "archesproject" %}
+        <a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a><span class="archesproject-mark"><img src="/public/logo.svg" alt="Arches Project" class="archesproject-mark-logo"></span>{% else %}<a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a>{% endif %}{% if not loop.last %}, {% endif %}
         {%- endfor %}
       </p>
       {%- endif %}
