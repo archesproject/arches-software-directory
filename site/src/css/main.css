@@ -80,7 +80,7 @@ a:hover { color: var(--color-arches-red-dark); }
 }
 .site-logo {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.5rem;
   text-decoration: none;
   color: var(--color-arches-red);
@@ -89,6 +89,7 @@ a:hover { color: var(--color-arches-red-dark); }
 .site-logo-img {
   height: 1.35rem;
   width: auto;
+  margin-bottom: 0.49rem;
   filter: brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(1200%) hue-rotate(335deg) brightness(95%);
   transition: filter 0.15s;
 }
@@ -96,8 +97,8 @@ a:hover { color: var(--color-arches-red-dark); }
   filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(1400%) hue-rotate(335deg) brightness(85%);
 }
 .site-logo-text {
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 400;
+  font-size: 1.42rem;
   letter-spacing: -0.01em;
 }
 .nav-links {
@@ -124,7 +125,7 @@ a:hover { color: var(--color-arches-red-dark); }
 }
 .hero-brand {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   gap: 0.75rem;
   margin-bottom: 1.25rem;
@@ -134,9 +135,10 @@ a:hover { color: var(--color-arches-red-dark); }
   height: 3.5rem;
   width: auto;
   max-width: min(18rem, 80%);
+  margin-bottom: 1.35rem;
 }
 .hero-page-title {
-  font-size: 2.6rem;
+  font-size: 3.96rem;
   font-weight: 300;
   letter-spacing: 0.01em;
   color: rgb(255, 255, 255);
