@@ -9,6 +9,12 @@ on:
       - "schema.json"
       - "site/**"
       - ".github/workflows/build-site.yml"
+  schedule:
+    # Rebuild weekly so the GitHub stars, latest PyPI version, and last-pushed
+    # dates baked in at build time do not go stale between manifest changes.
+    # Half an hour after the manifest audit, so the two jobs do not hammer the
+    # GitHub and PyPI APIs at the same moment.
+    - cron: "30 7 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -18,7 +24,10 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # Let an in-flight deploy finish rather than cancelling it partway; queued runs
+  # wait their turn instead. A cancelled Pages deploy can leave the published
+  # site mid-update, and the scheduled rebuild makes overlaps more likely.
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -49,7 +58,8 @@ jobs:
         run: |
           python scripts/enrich.py \
             --packages-dir packages \
-            --output site/src/_data/packages.json
+            --output site/src/_data/packages.json \
+            --fail-on-total-failure
 
       - name: Install Node deps
         working-directory: site

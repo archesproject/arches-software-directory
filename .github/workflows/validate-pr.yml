@@ -35,6 +35,8 @@ jobs:
 
       - name: Validate schema for each changed manifest
         if: steps.changed.outputs.files != ''
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
           failed=0
           while IFS= read -r file; do
@@ -42,74 +44,22 @@ jobs:
               echo "Validating schema: $file"
               check-jsonschema --schemafile schema.json "$file" || failed=1
             fi
-          done <<< "${{ steps.changed.outputs.files }}"
+          done <<< "$CHANGED_FILES"
           exit $failed
 
-      - name: Validate URLs and PyPI presence
+      - name: Check manifest URLs and PyPI names
         if: steps.changed.outputs.files != ''
+        env:
+          # Passed through the environment rather than interpolated into the
+          # script body, so a crafted filename cannot become code.
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
-          python - <<'PYEOF'
-          import sys
-          import yaml
-          import requests
-          import os
-
-          files = """${{ steps.changed.outputs.files }}""".strip().splitlines()
-          failures = []
-
-          for filepath in files:
-              filepath = filepath.strip()
-              if not filepath or not os.path.exists(filepath):
-                  continue
-
-              with open(filepath) as f:
-                  manifest = yaml.safe_load(f)
-
-              package_name = manifest.get("name", filepath)
-
-              # Check repository URL
-              repo_url = manifest.get("repository", "")
-              if repo_url:
-                  try:
-                      r = requests.head(repo_url, allow_redirects=True, timeout=10)
-                      if r.status_code >= 400:
-                          failures.append(f"{package_name}: repository URL returned {r.status_code}: {repo_url}")
-                  except requests.RequestException as e:
-                      failures.append(f"{package_name}: repository URL unreachable: {repo_url} ({e})")
-
-              # Check docs URL
-              docs_url = manifest.get("docs", "")
-              if docs_url:
-                  try:
-                      r = requests.head(docs_url, allow_redirects=True, timeout=10)
-                      if r.status_code >= 400:
-                          failures.append(f"{package_name}: docs URL returned {r.status_code}: {docs_url}")
-                  except requests.RequestException as e:
-                      failures.append(f"{package_name}: docs URL unreachable: {docs_url} ({e})")
-
-              # Check PyPI package
-              pypi_name = manifest.get("pypi", "")
-              if pypi_name:
-                  try:
-                      r = requests.get(f"https://pypi.org/pypi/{pypi_name}/json", timeout=10)
-                      if r.status_code == 404:
-                          failures.append(f"{package_name}: pypi package not found: {pypi_name}")
-                      elif r.status_code >= 400:
-                          failures.append(f"{package_name}: PyPI returned {r.status_code} for: {pypi_name}")
-                  except requests.RequestException as e:
-                      failures.append(f"{package_name}: PyPI check failed: {pypi_name} ({e})")
-
-          if failures:
-              print("Validation failures:")
-              for f in failures:
-                  print(f"  - {f}")
-              sys.exit(1)
-          else:
-              print("All URL and PyPI checks passed.")
-          PYEOF
+          printf '%s\n' "$CHANGED_FILES" | python scripts/check_manifests.py --stdin
 
       - name: Validate SPDX license identifiers
         if: steps.changed.outputs.files != ''
+        env:
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
         run: |
           python - <<'PYEOF'
           import sys
@@ -126,7 +76,7 @@ jobs:
               print("Warning: Could not fetch SPDX license list; skipping license validation.")
               sys.exit(0)
 
-          files = """${{ steps.changed.outputs.files }}""".strip().splitlines()
+          files = os.environ.get("CHANGED_FILES", "").strip().splitlines()
           failures = []
 
           for filepath in files:
