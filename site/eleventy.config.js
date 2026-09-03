@@ -28,6 +28,7 @@ export default function (eleventyConfig) {
       application: "kind-application",
       extension: "kind-extension",
       tool: "kind-tool",
+      package: "kind-package",
     };
     return classes[kind] ?? "kind-extension";
   });

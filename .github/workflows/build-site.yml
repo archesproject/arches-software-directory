@@ -1,4 +1,4 @@
-name: Build and deploy catalog site
+name: Build and deploy Arches Software Directory site
 
 on:
   push:
@@ -58,7 +58,8 @@ jobs:
       - name: Build site
         working-directory: site
         env:
-          ELEVENTY_PATH_PREFIX: /arches-catalog/
+          # Served from the root of a custom domain, so no project path prefix.
+          ELEVENTY_PATH_PREFIX: /
         run: npm run build
 
       - name: Build Pagefind search index

@@ -3,12 +3,12 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "arches-catalog"
+name = "arches-software-directory"
 readme = "README.md"
 authors = [
     {name = "Arches Project"}
 ]
-description = "Arches community catalog site"
+description = "Arches Software Directory site"
 version = "1.0.0"
 license = "AGPL-3.0-or-later"
 requires-python = ">=3.11"
