@@ -1,6 +1,6 @@
 name: arches-zod-validation
 kind: extension
-summary: Provides a Zod validation framework for arches-vue-component and arches-queryset data
+summary: Provides a Zod validation framework for arches-vue-components and arches-querysets data
 repository: https://github.com/bcgov/arches-zod-validation
 license: AGPL-3.0-or-later
 maintainers:

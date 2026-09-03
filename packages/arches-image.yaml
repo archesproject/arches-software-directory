@@ -1,7 +1,7 @@
 name: arches-image
 kind: extension
 summary: Experimental extension using AI services to enhance image functionality in an Arches project
-repository: http://github.com/HistoricEngland/arches-image
+repository: https://github.com/HistoricEngland/arches-image
 license: AGPL-3.0-or-later
 maintainers:
   - historicengland

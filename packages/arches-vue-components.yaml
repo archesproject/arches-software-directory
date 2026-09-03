@@ -1,0 +1,20 @@
+name: arches-vue-components
+kind: extension
+summary: Vue 3 and PrimeVue component library for building custom Arches application front ends.
+repository: https://github.com/archesproject/arches-vue-components
+pypi: arches-vue-components
+license: AGPL-3.0-or-later
+maintainers:
+  - archesproject
+arches_versions: ">=8.0"
+domains:
+  - developer-tooling
+  - frontend
+tags:
+  - vue
+  - primevue
+  - components
+  - ui-library
+  - developer-tools
+  - frontend
+status: stable
