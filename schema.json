@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/archesproject/arches-packages/main/schema.json",
-  "title": "Arches Package Manifest",
-  "description": "Schema for an arches-packages manifest file describing an Arches extension or application.",
+  "$id": "https://raw.githubusercontent.com/archesproject/arches-software-directory/main/schema.json",
+  "title": "Arches Software Directory Manifest",
+  "description": "Schema for an Arches Software Directory manifest file describing an Arches extension, application, tool, or package.",
   "type": "object",
   "required": ["name", "kind", "summary", "repository", "license", "maintainers", "arches_versions", "status"],
   "additionalProperties": false,
@@ -14,8 +14,8 @@
     },
     "kind": {
       "type": "string",
-      "description": "Whether this is a core extension, an application, or a developer tool.",
-      "enum": ["extension", "application", "tool"]
+      "description": "Whether this is an extension, an application, a developer tool, or a data package.",
+      "enum": ["extension", "application", "tool", "package"]
     },
     "summary": {
       "type": "string",
@@ -70,7 +70,7 @@
     "status": {
       "type": "string",
       "description": "Development maturity of the package.",
-      "enum": ["planning", "alpha", "experimental", "beta", "stable", "maintenance"]
+      "enum": ["planning", "experimental", "alpha", "beta", "stable", "maintenance"]
     }
   }
 }

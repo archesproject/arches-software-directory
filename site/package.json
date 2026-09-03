@@ -1,7 +1,7 @@
 {
-  "name": "arches-packages-site",
+  "name": "arches-software-directory-site",
   "version": "1.0.0",
-  "description": "Arches community packages catalog site",
+  "description": "Arches Software Directory site",
   "private": true,
   "type": "module",
   "scripts": {
