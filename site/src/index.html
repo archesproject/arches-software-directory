@@ -1,20 +1,60 @@
 ---
 layout: base.html
-title: Arches Catalog — Community Extensions and Applications
+title: Arches Software Directory — Community Applications, Extensions, Tools, and Packages
 ---
 
 <section class="hero">
   <div class="hero-brand">
     <img src="/public/logo.svg" alt="Arches" class="hero-logo">
-    <h1 class="hero-page-title">catalog</h1>
+    <h1 class="hero-page-title">software directory</h1>
   </div>
   <p class="hero-subtitle">
-    Discover community extensions and applications built on the
+    Discover community-built extensions, applications, tools, and packages available for the
     <a href="https://www.archesproject.org/">Arches platform</a>.
   </p>
-  <a href="https://github.com/archesproject/arches-catalog#submitting-a-package"
+
+  <div class="hero-intro">
+    <p>
+      This directory serves as a centralized information source about Arches-related software tools
+      shared by contributors across the Arches open-source community. It is intended to track the
+      breadth of technical options available to those interested in Arches, and provide visibility to
+      and encourage alignment among the community&rsquo;s technical contributors.
+      <button
+        type="button"
+        class="hero-more-toggle"
+        id="hero-more-toggle"
+        aria-controls="hero-more"
+        aria-expanded="true"
+      >How to browse and submit</button>
+    </p>
+
+    <div class="hero-details-body" id="hero-more">
+      <h2>Browsing the Arches Software Directory</h2>
+      <p>
+        The directory provides metadata describing each software item, including its function,
+        development status, licensing information, and parties involved in its development and
+        maintenance. Keywords and additional filters allow for searching the directory via the
+        search bar, and viewing contents by a specific type, development status, or supported
+        Arches version. Inclusion of the Arches logo indicates code that is officially maintained
+        by the Arches Project.
+      </p>
+
+      <h2>Submitting an item to the Arches Software Directory</h2>
+      <p>
+        Contributors are invited to submit applications, extensions, other Arches-specific tools,
+        and data model packages through a pull request via the button below. Contributors are
+        encouraged to share works-in-progress to provide visibility and promote alignment early in
+        the development process. Regardless of authorship or code location, all submitted items
+        must be shared under an appropriate open-source licence (e.g., AGPL3). The Getty
+        Conservation Institute, as sponsor of the Arches Project, retains editorial control over
+        this directory.
+      </p>
+    </div>
+  </div>
+
+  <a href="https://github.com/archesproject/arches-software-directory#submitting-a-package"
      class="btn-primary">
-    Submit a package
+    Submit an item
   </a>
 </section>
 
@@ -24,16 +64,17 @@ title: Arches Catalog — Community Extensions and Applications
       type="search"
       id="search"
       class="search-input"
-      placeholder="Search packages…"
-      aria-label="Search packages"
+      placeholder="Search the directory…"
+      aria-label="Search the directory"
     />
 
-    <div class="filters" role="group" aria-label="Filter packages">
+    <div class="filters" role="group" aria-label="Filter items">
       <select id="filter-kind" aria-label="Filter by type">
         <option value="">All types</option>
         <option value="application">Application</option>
         <option value="extension">Extension</option>
         <option value="tool">Tool</option>
+        <option value="package">Package</option>
       </select>
 
       <select id="filter-status" aria-label="Filter by status">
@@ -60,7 +101,7 @@ title: Arches Catalog — Community Extensions and Applications
 
   <p class="package-count">
     Showing <span id="visible-count">{{ packages | length }}</span> of
-    {{ packages | length }} packages
+    {{ packages | length }} items
   </p>
 
   <ul class="package-grid" id="package-grid" role="list">
@@ -138,8 +179,8 @@ title: Arches Catalog — Community Extensions and Applications
   </ul>
 
   <p class="no-results" id="no-results" hidden>
-    No packages match your search. Want to
-    <a href="https://github.com/archesproject/arches-catalog#submitting-a-package">submit one?</a>
+    No items match your search. Want to
+    <a href="https://github.com/archesproject/arches-software-directory#submitting-a-package">submit one?</a>
   </p>
 
   <nav class="pagination" id="pagination" aria-label="Pagination" hidden></nav>
@@ -270,4 +311,34 @@ title: Arches Catalog — Community Extensions and Applications
   versionFilter.addEventListener("input", resetAndFilter);
 
   filterCards();
+</script>
+
+<script>
+  (function () {
+    const toggle = document.getElementById("hero-more-toggle");
+    const region = document.getElementById("hero-more");
+    if (!toggle || !region) return;
+
+    // `until-found` keeps the copy discoverable by find-in-page where supported,
+    // and falls back to a plain hidden region everywhere else.
+    const collapse = () => {
+      region.setAttribute("hidden", "until-found");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+    const expand = () => {
+      region.removeAttribute("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    collapse();
+
+    toggle.addEventListener("click", () => {
+      toggle.getAttribute("aria-expanded") === "true" ? collapse() : expand();
+    });
+
+    // Fired when find-in-page reveals a `hidden="until-found"` region.
+    region.addEventListener("beforematch", () => {
+      toggle.setAttribute("aria-expanded", "true");
+    });
+  })();
 </script>
