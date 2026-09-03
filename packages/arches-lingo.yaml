@@ -3,11 +3,10 @@ kind: application
 summary: Vocabulary and thesaurus management application for Arches, built on SKOS and polyhierarchical concept models.
 repository: https://github.com/archesproject/arches-lingo
 pypi: arches-lingo
-docs: https://arches-lingo.readthedocs.io
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
-arches_versions: ">=8.1,<9.0"
+arches_versions: ">=8.1.4,<8.2"
 domains:
   - vocabularies
   - thesauri

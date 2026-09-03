@@ -6,7 +6,7 @@ pypi: arches-querysets
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
-arches_versions: ">=7.6.12,!=8.0.0,<8.2"
+arches_versions: ">=7.6.22,!=8.0.0,<9.0"
 domains:
   - developer-tooling
 tags:

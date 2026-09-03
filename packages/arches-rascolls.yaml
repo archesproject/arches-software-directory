@@ -2,7 +2,6 @@ name: arches-rascolls
 kind: application
 summary: Reference and sample collections application for Arches, providing demo datasets and reference data for development and testing.
 repository: https://github.com/archesproject/arches-rascolls
-pypi: arches-rascolls
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject

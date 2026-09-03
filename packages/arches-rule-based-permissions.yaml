@@ -1,6 +1,6 @@
 name: arches-rule-based-permissions
 kind: extension
-summary: Resource instance permission framework that enforces attribute based permissions 
+summary: Resource instance permission framework that enforces attribute based permissions.
 repository: https://github.com/fargeo/arches-rule-based-permissions
 docs: https://github.com/fargeo/arches-rule-based-permissions#arches-rule-based-permissions
 license: AGPL-3.0-or-later

@@ -2,11 +2,12 @@ name: arches-her
 kind: application
 summary: Arches application for UK Historic Environment Records (HERs), conforming to FISH/MIDAS Heritage standards.
 repository: https://github.com/archesproject/arches-her
+pypi: arches-her
 docs: https://www.archesproject.org/arches-for-hers/
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
-arches_versions: ">=7.5,<7.6"
+arches_versions: ">=7.6.23,<8.0"
 domains:
   - historic-environment
   - cultural-heritage
