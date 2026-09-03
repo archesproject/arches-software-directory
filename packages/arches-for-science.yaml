@@ -1,0 +1,20 @@
+name: arches-for-science
+kind: application
+summary: Arches application for conservation scientists to record, manage, and visualize laboratory and instrumental analysis data.
+repository: https://github.com/archesproject/arches-for-science
+pypi: arches-for-science
+docs: https://www.archesproject.org/arches-for-science/
+license: AGPL-3.0-or-later
+maintainers:
+  - archesproject
+arches_versions: ">=7.6.10,<8.0"
+domains:
+  - conservation-science
+  - cultural-heritage
+tags:
+  - conservation
+  - heritage-science
+  - laboratory-data
+  - instrumental-analysis
+  - sample-management
+status: stable
