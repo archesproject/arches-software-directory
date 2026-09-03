@@ -1,8 +1,9 @@
 name: arches-lingo
 kind: application
-summary: Vocabulary and thesaurus management application for Arches, built on SKOS and polyhierarchical concept models.
+summary: An Arches application for creating, managing, and sharing controlled vocabularies.
 repository: https://github.com/archesproject/arches-lingo
 pypi: arches-lingo
+docs: https://www.archesproject.org/lingo
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
