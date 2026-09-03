@@ -65,13 +65,19 @@ title: Arches Catalog — Community Extensions and Applications
 
   <ul class="package-grid" id="package-grid" role="list">
     {%- for pkg in packages | sort(attribute="name") %}
+    {%- set isArchesProject = pkg.maintainers and (pkg.maintainers | join(",")).includes("archesproject") %}
     <li
-      class="package-card"
+      class="package-card{% if isArchesProject %} package-card--archesproject{% endif %}"
       data-kind="{{ pkg.kind }}"
       data-status="{{ pkg.status }}"
       data-arches-versions="{{ pkg.arches_versions }}"
       data-pagefind-body
     >
+      {%- if isArchesProject %}
+      <div class="archesproject-ribbon" aria-hidden="true">
+        <svg class="archesproject-ribbon-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,1 14.68,5.53 19.78,4.22 18.47,9.32 23,12 18.47,14.68 19.78,19.78 14.68,18.47 12,23 9.32,18.47 4.22,19.78 5.53,14.68 1,12 5.53,9.32 4.22,4.22 9.32,5.53" fill="white"/><path d="M7.5 12l3.5 3.5 5.5-6.5" stroke="var(--color-arches-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+      {%- endif %}
       <div class="card-header">
         <div class="card-title-row">
           <a href="{{ pkg.repository }}" class="card-name" rel="noopener noreferrer">{{ pkg.name }}</a>
@@ -85,7 +91,11 @@ title: Arches Catalog — Community Extensions and Applications
       {%- if pkg.maintainers and pkg.maintainers.length %}
       <p class="card-owner">
         {%- for maintainer in pkg.maintainers %}
-        <a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a>{% if not loop.last %}, {% endif %}
+        <a href="https://github.com/{{ maintainer }}" rel="noopener noreferrer">@{{ maintainer }}</a>
+        {%- if maintainer === "archesproject" -%}
+        <span class="archesproject-mark"><img src="/public/logo.svg" alt="Arches Project" class="archesproject-mark-logo"></span>
+        {%- endif %}
+        {%- if not loop.last %}, {% endif %}
         {%- endfor %}
       </p>
       {%- endif %}
