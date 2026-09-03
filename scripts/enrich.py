@@ -127,10 +127,35 @@ def enrich(manifests):
     return enriched
 
 
+def summarize_coverage(enriched):
+    """Returns {source: (successes, attempts)} for the live data lookups.
+
+    A failed lookup leaves an empty dict behind, so an empty value means the API
+    call did not produce anything usable.
+    """
+    coverage = {}
+    for source in ("_pypi", "_github"):
+        attempts = [p for p in enriched if source in p]
+        successes = [p for p in attempts if p[source]]
+        coverage[source.lstrip("_")] = (len(successes), len(attempts))
+    return coverage
+
+
 def main():
     parser = argparse.ArgumentParser(description="Enrich manifests with live API data")
-    parser.add_argument("--packages-dir", default="packages", help="Path to packages/ directory")
+    parser.add_argument(
+        "--packages-dir", default="packages", help="Path to packages/ directory"
+    )
     parser.add_argument("--output", required=True, help="Output JSON file path")
+    parser.add_argument(
+        "--fail-on-total-failure",
+        action="store_true",
+        help=(
+            "Exit non-zero if a data source was attempted but returned nothing at all. "
+            "Used by the scheduled rebuild so a rate-limited run leaves the previous "
+            "deploy in place instead of publishing a site with blank stars and versions."
+        ),
+    )
     args = parser.parse_args()
 
     print(f"Loading manifests from {args.packages_dir}/...")
@@ -140,6 +165,17 @@ def main():
     print("Enriching with live data...")
     enriched = enrich(manifests)
 
+    coverage = summarize_coverage(enriched)
+    print("Live data coverage:")
+    for source, (successes, attempts) in coverage.items():
+        print(f"  {source}: {successes}/{attempts} lookups returned data")
+
+    collapsed = [
+        source
+        for source, (successes, attempts) in coverage.items()
+        if attempts and not successes
+    ]
+
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w") as f:
@@ -147,6 +183,18 @@ def main():
 
     print(f"Wrote {len(enriched)} enriched packages to {output_path}")
 
+    if collapsed:
+        message = (
+            f"Every {', '.join(collapsed)} lookup failed — likely rate limiting or an "
+            f"API outage, not a manifest problem."
+        )
+        if args.fail_on_total_failure:
+            print(f"ERROR: {message}", file=sys.stderr)
+            return 1
+        print(f"WARNING: {message}", file=sys.stderr)
+
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

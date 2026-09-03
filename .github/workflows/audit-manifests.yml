@@ -1,0 +1,38 @@
+name: Audit all manifests
+
+# The pull request validator only inspects manifests a PR actually touches, so a
+# reference can rot for months without anything noticing. This sweeps every
+# manifest on a schedule instead, and reports rather than gating: it cannot block
+# a pull request, and only a genuinely broken reference (404/410, unregistered
+# PyPI name) fails the run. Refusals and throttling land in the job summary.
+
+on:
+  schedule:
+    # 07:00 UTC every Monday.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Check every manifest reference
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation tools
+        run: pip install check-jsonschema PyYAML requests
+
+      - name: Validate every manifest against the schema
+        run: check-jsonschema --schemafile schema.json packages/*.yaml
+
+      - name: Check every manifest's URLs and PyPI names
+        run: python scripts/check_manifests.py --all --packages-dir packages
