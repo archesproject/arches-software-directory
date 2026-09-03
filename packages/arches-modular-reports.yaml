@@ -6,7 +6,7 @@ pypi: arches-modular-reports
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
-arches_versions: ">=7.6.22,<8.3"
+arches_versions: ">=8.0,<9.0"
 domains:
   - reporting
   - cultural-heritage
@@ -16,4 +16,4 @@ tags:
   - configurable
   - frontend
   - resource-models
-status: beta
+status: stable

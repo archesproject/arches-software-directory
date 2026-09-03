@@ -6,7 +6,7 @@ pypi: arches-search
 license: AGPL-3.0-or-later
 maintainers:
   - archesproject
-arches_versions: ">=8.1,<8.3"
+arches_versions: ">=8.2,<8.3"
 domains:
   - search
   - cultural-heritage
@@ -15,4 +15,4 @@ tags:
   - elasticsearch
   - faceted-search
   - full-text-search
-status: experimental
+status: alpha
