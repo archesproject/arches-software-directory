@@ -58,8 +58,7 @@ jobs:
       - name: Build site
         working-directory: site
         env:
-          # Served from the root of a custom domain, so no project path prefix.
-          ELEVENTY_PATH_PREFIX: /
+          ELEVENTY_PATH_PREFIX: /arches-software-directory
         run: npm run build
 
       - name: Build Pagefind search index
