@@ -1,0 +1,17 @@
+name: arches-id-generator  
+kind: extension            
+summary: An Arches extension that assigns server-generated identifiers to resource nodes, using a template string
+repository: https://github.com/flaxandteal-arches/arches-id-generator
+license: AGPL-3.0-only
+maintainers:
+  - stucm
+arches_versions: ">=7.6.0"
+domains:
+  - domain-agnostic
+tags:
+  - id-generator
+  - workflows
+  - widgets
+  - generator
+  - component    
+status: alpha     
