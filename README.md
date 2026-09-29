@@ -68,6 +68,9 @@ summary: One sentence that explains what your package does.
 repository: https://github.com/you/your-package
 pypi: your-package-name         # omit if not on PyPI
 docs: https://your-docs-url     # omit if no docs site
+contributor:                    # omit if no contributor attribution is needed
+  name: Contributor name
+  url: https://contributor.example
 license: AGPL-3.0-or-later      # SPDX identifier
 maintainers:
   - your-github-username
@@ -126,6 +129,7 @@ See [`schema.json`](schema.json) for the full JSON Schema definition. Key fields
 | `status`          | Yes      | `planning`, `experimental`, `alpha`, `beta`, `stable`, or `maintenance` |
 | `pypi`            | No       | PyPI package name                                          |
 | `docs`            | No       | Documentation URL                                          |
+| `contributor`     | No       | Contributing organization name and URL                     |
 | `domains`         | No       | High-level subject domains                                 |
 | `tags`            | No       | Freeform search tags (lowercase, hyphen-separated)         |
 

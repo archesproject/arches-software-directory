@@ -4,6 +4,7 @@
   --color-arches-navy-dark: #1e3366;
   --color-arches-red: #b83229;
   --color-arches-red-dark: #8f2420;
+  --color-getty-blue: #0076a8;
   --color-text: #1a1a1a;
   --color-text-muted: #555;
   --color-border: #d4d4d4;
@@ -416,6 +417,20 @@ a:hover { color: var(--color-arches-red-dark); }
   margin: 0.1rem 0 0;
   line-height: 1.5;
   flex: 1;
+}
+.card-contributor {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+}
+.card-contributor a {
+  color: var(--color-getty-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+.card-contributor a:hover {
+  color: var(--color-arches-navy-dark);
+  text-decoration: underline;
 }
 /* Meta row: plain dot-separated text, no pill borders */
 .card-meta {
