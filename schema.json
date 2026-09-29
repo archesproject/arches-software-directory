@@ -37,6 +37,16 @@
       "description": "URL for package documentation.",
       "format": "uri"
     },
+    "contributor": {
+      "type": "object",
+      "description": "Optional attribution for an organization that contributed the package.",
+      "additionalProperties": false,
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
     "license": {
       "type": "string",
       "description": "SPDX license identifier. See https://spdx.org/licenses/",

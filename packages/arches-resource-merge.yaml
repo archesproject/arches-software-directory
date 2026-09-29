@@ -3,6 +3,9 @@ kind: extension
 summary: Merge one or more Arches resource instance(s) into a single base resource instance.
 repository: https://github.com/thegetty/arches-merge
 pypi: arches-resource-merge
+contributor:
+  name: Getty
+  url: https://www.getty.edu/
 license: GPL-3.0-or-later
 maintainers:
   - AdvanceServices

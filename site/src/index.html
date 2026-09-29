@@ -135,7 +135,14 @@ title: Arches Software Directory — Community Applications, Extensions, Tools, 
       </p>
       {%- endif %}
 
-      <p class="card-summary">{{ pkg.summary }}</p>
+      <p class="card-summary">
+        {{ pkg.summary }}
+        {%- if pkg.contributor %}
+        <span class="card-contributor">
+          <a href="{{ pkg.contributor.url }}" rel="noopener noreferrer">Contributed by {{ pkg.contributor.name }}</a>
+        </span>
+        {%- endif %}
+      </p>
 
       <div class="card-meta">
         {%- set pushed = pkg | lastPushed %}
